@@ -1,0 +1,130 @@
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| company            |
+| department         |
+| employee           |
+| employeedb         |
+| mysql              |
+| performance_schema |
+| sys                |
++--------------------+
+8 rows in set (0.00 sec)
+
+mysql> use company;
+Database changed
+
+mysql> create table Employee
+    -> (Emp_no int not null,
+    -> Emp_name varchar(30) not null,
+    -> Adress varchar(30),
+    -> Sex varchar(30),
+    -> Dept varchar(30),
+    -> Salary int,
+    -> Doj date,
+    -> Branch varchar(30),
+    -> primary key(Emp_no));
+    8 rows in set (0.01 sec
+                   
+mysql> describe employee;
++----------+-------------+------+-----+---------+-------+
+| Field    | Type        | Null | Key | Default | Extra |
++----------+-------------+------+-----+---------+-------+
+| emp_no   | int(11)     | NO   | PRI | NULL    |       |
+| emp_name | varchar(30) | YES  |     | NULL    |       |
+| address  | varchar(30) | YES  |     | NULL    |       |
+| sex      | varchar(30) | YES  |     | NULL    |       |
+| dept     | varchar(30) | YES  |     | NULL    |       |
+| salary   | int(11)     | YES  |     | NULL    |       |
+| doj      | date        | YES  |     | NULL    |       |
+| branch   | varchar(30) | YES  |     | NULL    |       |
++----------+-------------+------+-----+---------+-------+
+8 rows in set (0.00 sec)                   
+                   
+  mysql> select * from employee;
++--------+----------+---------+--------+----------+--------+------------+----------+
+| emp_no | emp_name | address | sex    | dept     | salary | doj        | branch   |
++--------+----------+---------+--------+----------+--------+------------+----------+
+|    101 | aju      | abcd    | male   | accounts |  20000 | 2003-09-11 | mumbai   |
+|    102 | ammu     | pqrst   | female | sales    |  10000 | 2007-03-14 | banglore |
+|    103 | anjana   | jqk     | female | accounts |  25000 | 2012-04-11 | pune     |
+|    104 | swati    | whk     | female | sales    |   9000 | 2019-03-14 | kerala   |
+|    105 | abhi     | dfp     | male   | accounts |  24000 | 2020-01-17 | kerala   |
++--------+----------+---------+--------+----------+--------+------------+----------+
+5 rows in set (0.01 sec)
+                   
+mysql> select emp_no,salary from employee;
++--------+--------+
+| emp_no | salary |
++--------+--------+
+|    101 |  20000 |
+|    102 |  10000 |
+|    104 |   9000 |
+|    105 |  24000 |
++--------+--------+
+4 rows in set (0.01 sec)
+
+
+mysql> select avg(salary) as 'average salary'
+    -> from employee;
++----------------+
+| average salary |
++----------------+
+|     15750.0000 |
++----------------+
+1 row in set (0.03 sec)
+                   
+mysql> select count(*) from employee;
++----------+
+| count(*) |
++----------+
+|        4 |
++----------+
+1 row in set (0.00 sec)
+                   
+ mysql> select distinct count(*)
+    -> from employee;
++----------+
+| count(*) |
++----------+
+|        4 |
++----------+
+1 row in set (0.00 sec)
+                   
+mysql> select sum(salary) as 'total salary' from employee
+    -> group by emp_name
+    -> having count(emp_name)>1;
+Empty set (0.00 sec)
+                   
+mysql> select sum(salary) from employee
+    -> where salary>12000;
++-------------+
+| sum(salary) |
++-------------+
+|       44000 |
++-------------+
+1 row in set (0.00 sec)
+                   
+ 
+mysql> select emp_name from employee
+    -> order by emp_name desc;
++----------+
+| emp_name |
++----------+
+| swati    |
+| ammu     |
+| aju      |
+| abhi     |
++----------+
+4 rows in set (0.00 sec)
+
+ mysql> select * from employee
+    -> where emp_name='martin' and salary>20000;
++--------+----------+---------+------+----------+--------+------------+--------+
+| emp_no | emp_name | address | sex  | dept     | salary | doj        | branch |
++--------+----------+---------+------+----------+--------+------------+--------+
+|    105 | martin   | dfp     | male | accounts |  26000 | 2020-01-17 | kerala |
++--------+----------+---------+------+----------+--------+------------+--------+
+1 row in set (0.02 sec)
