@@ -1,1 +1,109 @@
+mysql> create database company;
+Query OK, 1 row affected (0.01 sec)
 
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| company            |
+| department         |
+| employee           |
+| employeedb         |
+| mysql              |
+| performance_schema |
+| sys                |
++--------------------+
+8 rows in set (0.00 sec)
+
+mysql> use company;
+Database changed
+
+mysql> describe dept;
++--------------+-------------+------+-----+---------+-------+
+| Field        | Type        | Null | Key | Default | Extra |
++--------------+-------------+------+-----+---------+-------+
+| dept_no      | int(11)     | YES  |     | NULL    |       |
+| dname    | varchar(30) | YES  |     | NULL    |       |
+| mgr_id       | int(11)     | YES  |     | NULL    |       |
+| mgr_strtdate | date        | YES  |     | NULL    |       |
++--------------+-------------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+
+mysql> select * from department;
++---------+------------+--------+--------------+
+| dept_no | dname      | mgr_id | mgr_strtdate |
++---------+------------+--------+--------------+
+|       1 | accounting |      1 | 2019-09-11   |
+|       2 | sales      |      2 | 2020-01-10   |
+|       3 | manager    |      3 | 2007-05-23   |
+|       4 | accounting |      4 | 2009-06-15   |
+|       5 | research   |      5 | 2010-03-01   |
++---------+------------+--------+--------------+
+5 rows in set (0.00 sec)
+
+mysql> alter table department
+    -> rename to dept;
+Query OK, 0 rows affected (0.06 sec)
+
+mysql> select * from dept;
++---------+------------+--------+--------------+
+| dept_no | dname      | mgr_id | mgr_strtdate |
++---------+------------+--------+--------------+
+|       1 | accounting |      1 | 2019-09-11   |
+|       2 | sales      |      2 | 2020-01-10   |
+|       3 | manager    |      3 | 2007-05-23   |
+|       4 | accounting |      4 | 2009-06-15   |
+|       5 | research   |      5 | 2010-03-01   |
++---------+------------+--------+--------------+
+5 rows in set (0.00 sec)
+
+mysql> alter table dept
+    -> add phone int not null;
+Query OK, 0 rows affected (0.18 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> select * from dept;
++---------+------------+--------+--------------+-------+
+| dept_no | dname      | mgr_id | mgr_strtdate | phone |
++---------+------------+--------+--------------+-------+
+|       1 | accounting |      1 | 2019-09-11   |     0 |
+|       2 | sales      |      2 | 2020-01-10   |     0 |
+|       3 | manager    |      3 | 2007-05-23   |     0 |
+|       4 | accounting |      4 | 2009-06-15   |     0 |
+|       5 | research   |      5 | 2010-03-01   |     0 |
++---------+------------+--------+--------------+-------+
+5 rows in set (0.00 sec)
+
+mysql> alter table dept
+    -> rename column dname to dept_Name;
+Query OK, 0 rows affected (0.02 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+mysql> describe dept;
++---------+------------+--------+--------------+-------+
+| dept_no | dept_name      | mgr_id | mgr_strtdate | phone |
++---------+------------+--------+--------------+-------+
+|       1 | accounting |      1 | 2019-09-11   |     0 |
+|       2 | sales      |      2 | 2020-01-10   |     0 |
+|       3 | manager    |      3 | 2007-05-23   |     0 |
+|       4 | accounting |      4 | 2009-06-15   |     0 |
+|       5 | research   |      5 | 2010-03-01   |     0 |
++---------+------------+--------+--------------+-------+
+
+
+mysql> alter table dept
+    -> modify dept_name char(10);
+Query OK, 4 rows affected (0.12 sec)
+Records: 4  Duplicates: 0  Warnings: 0
++--------------+----------+------+-----+---------+-------+
+| Field        | Type     | Null | Key | Default | Extra |
++--------------+----------+------+-----+---------+-------+
+| dept_no      | int(11)  | YES  |     | NULL    |       |
+| dept_name    | char(10) | YES  |     | NULL    |       |
+| mgr_id       | int(11)  | YES  |     | NULL    |       |
+| mgr_strtdate | date     | YES  |     | NULL    |       |
+| phone        | int(11)  | NO   |     | NULL    |       |
++--------------+----------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+
+mysql> drop table dept;
